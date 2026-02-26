@@ -3,7 +3,7 @@ name: Generate PPTX from HTML
 on:
   push:
     paths:
-      - 'html_to_ppt/outhtml/**' # 只有當 HTML 資料夾變動時才執行
+      - 'html_to_ppt/outhtml/**'
   workflow_dispatch:
 
 jobs:
@@ -18,12 +18,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          # 移除 cache: 'npm' 以避免找不到 lock 檔的錯誤
 
       - name: Install dependencies
         run: |
           npm init -y
           npm install puppeteer pptxgenjs
+          # 執行完這步會自動產生 package-lock.json，但因為我們不跑 cache 所以沒關係
 
       - name: Install Chinese Fonts
         run: |
