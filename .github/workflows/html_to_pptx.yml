@@ -39,3 +39,22 @@ jobs:
           # 關鍵：指向您指定的資料夾
           path: outppt/*.pptx
           retention-days: 7
+          - name: Verify Paths
+        run: |
+          echo "當前目錄內容："
+          ls -R
+          
+      - name: Run conversion script
+        run: node scripts/convert.js
+
+      - name: Check output folder
+        run: |
+          echo "檢查 outppt 資料夾內容："
+          ls -R outppt/
+
+      - name: Upload PPTX Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: Anti-Scam-Presentation
+          path: outppt/*.pptx
+          if-no-files-found: error # 如果沒找到檔案，直接報錯讓 Action 變紅色
