@@ -3,7 +3,7 @@ name: Generate PPTX from HTML
 on:
   push:
     paths:
-      - 'html_to_ppt/inhtml/**'
+      - 'inhtml/**'
   workflow_dispatch:
 
 jobs:
@@ -31,8 +31,10 @@ jobs:
 
       - name: Debug Directory Structure
         run: |
-          echo "=== 檢查目錄層級 ==="
-          ls -R html_to_ppt/
+          echo "=== 檢查根目錄內容 ==="
+          ls -F
+          echo "=== 檢查 inhtml 內容 ==="
+          ls -R inhtml/
 
       - name: Run conversion script
         run: node scripts/convert.js
