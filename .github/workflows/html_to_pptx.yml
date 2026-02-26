@@ -1,1 +1,36 @@
-1
+name: Generate PPTX from HTML
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # 允許手動執行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Google Chrome (for Puppeteer)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run conversion script
+        run: node scripts/convert.js
+
+      - name: Upload PPTX Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: Anti-Scam-Presentation
+          path: Anti-Scam-2025.pptx
