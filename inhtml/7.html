@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI工具使用安全守則</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #F8FAFC;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styling */
+        .header {
+            height: 100px;
+            background-color: #1A3A5C;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            position: relative;
+            z-index: 10;
+        }
+        .header-accent {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 150px;
+            height: 6px;
+            background: #C9A84C;
+        }
+
+        /* Content Layout */
+        .content-container {
+            flex: 1;
+            padding: 30px 60px;
+            display: flex;
+            gap: 40px;
+            position: relative;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Left Side: General Rule */
+        .policy-sidebar {
+            width: 300px;
+            background: #1A3A5C;
+            border-radius: 16px;
+            padding: 30px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 520px;
+            position: relative;
+            box-shadow: 0 10px 20px -5px rgba(26, 58, 92, 0.4);
+        }
+
+        .ai-warning-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .ban-overlay {
+            position: absolute;
+            font-size: 120px;
+            color: #EF4444;
+            opacity: 0.8;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Right Side: Detailed Checklist Grid */
+        .checklist-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            height: 520px;
+        }
+
+        .check-category {
+            background: white;
+            border-radius: 12px;
+            border-top: 5px solid #CBD5E1; /* Default gray */
+            padding: 20px 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+
+        .check-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Category Specific Border Colors */
+        .cat-pii { border-top-color: #EF4444; } /* Red for PII */
+        .cat-biz { border-top-color: #F59E0B; } /* Orange for Business */
+        .cat-ops { border-top-color: #3B82F6; } /* Blue for Internal Ops */
+        .cat-sec { border-top-color: #6366F1; } /* Indigo for Security */
+
+        .cat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .cat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        /* Icon Colors */
+        .cat-pii .cat-icon { background: #FEF2F2; color: #EF4444; }
+        .cat-biz .cat-icon { background: #FFFBEB; color: #F59E0B; }
+        .cat-ops .cat-icon { background: #EFF6FF; color: #3B82F6; }
+        .cat-sec .cat-icon { background: #EEF2FF; color: #6366F1; }
+
+        .list-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: #475569;
+        }
+
+        .x-mark {
+            color: #EF4444;
+            margin-right: 10px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(#CBD5E1 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        /* Bottom Alert Strip */
+        .bottom-warning {
+            margin-top: auto;
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #991B1B;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="header">
+<div class="header-accent"></div>
+<div class="flex flex-col">
+<div class="flex items-center space-x-3 mb-1">
+<span class="px-2 py-0.5 bg-yellow-600 bg-opacity-20 border border-yellow-600 rounded text-yellow-500 text-xs font-bold tracking-wider">AI SECURITY</span>
+<p class="text-gray-300 text-sm tracking-wide font-light">人工智慧工具使用規範</p>
+</div>
+<h1 class="text-3xl text-white font-bold tracking-wide">AI工具使用安全守則：<span class="text-[#C9A84C]">禁止上傳資料清單</span></h1>
+</div>
+<div class="ml-auto">
+<i class="fas fa-robot text-4xl text-white opacity-20"></i>
+</div>
+</div>
+<!-- Main Content -->
+<div class="content-container">
+<div class="bg-pattern"></div>
+<!-- Left Sidebar: Core Principle -->
+<div class="policy-sidebar z-10">
+<div class="mt-4">
+<h3 class="text-xl font-bold text-[#C9A84C] mb-1">核心原則</h3>
+<p class="text-sm text-gray-300 tracking-wider">CORE PRINCIPLE</p>
+</div>
+<div class="flex-1 flex flex-col justify-center items-center w-full">
+<div class="ai-warning-icon">
+<i class="fas fa-brain text-4xl text-white"></i>
+<div class="ban-overlay">
+<i class="fas fa-ban"></i>
+</div>
+</div>
+<p class="text-lg font-bold mb-4">資料不上雲</p>
+<div class="bg-white bg-opacity-10 rounded-lg p-4 w-full text-left">
+<p class="text-sm leading-relaxed text-gray-200">
+                            免費或公開版本的 AI 工具（如 ChatGPT, Claude）可能會將您的輸入內容用於<span class="text-[#C9A84C] font-bold">模型訓練</span>。
+                        </p>
+<p class="text-sm leading-relaxed text-gray-200 mt-3">
+                            一旦上傳，資料即視為<span class="text-red-400 font-bold">永久外洩</span>，無法撤回。
+                        </p>
+</div>
+</div>
+<div class="w-full mt-auto">
+<div class="border-t border-white border-opacity-20 pt-4">
+<p class="text-xs text-gray-400">適用所有同仁</p>
+</div>
+</div>
+</div>
+<!-- Right Content: Checklist Grid -->
+<div class="flex flex-col flex-1 h-full z-10 justify-between">
+<div class="checklist-grid">
+<!-- Category 1: PII -->
+<div class="check-category cat-pii">
+<div class="cat-header">
+<div class="cat-icon"><i class="fas fa-id-card"></i></div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg">保戶個人資料</h4>
+<p class="text-xs text-gray-500">最嚴格禁止項目</p>
+</div>
+</div>
+<div class="list-group">
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>真實姓名、身分證字號</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>聯絡電話、手機號碼</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>戶籍與通訊地址</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>出生年月日、銀行帳號</p></div>
+</div>
+</div>
+<!-- Category 2: Business Data -->
+<div class="check-category cat-biz">
+<div class="cat-header">
+<div class="cat-icon"><i class="fas fa-file-contract"></i></div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg">業務與保單資料</h4>
+<p class="text-xs text-gray-500">涉及商業機密與隱私</p>
+</div>
+</div>
+<div class="list-group">
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>保單影本、投保建議書</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>理賠申請文件、診斷證明</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>客戶資產對帳單</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>受益人清冊、繳費紀錄</p></div>
+</div>
+</div>
+<!-- Category 3: Internal Operations -->
+<div class="check-category cat-ops">
+<div class="cat-header">
+<div class="cat-icon"><i class="fas fa-building"></i></div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg">內部營運文件</h4>
+<p class="text-xs text-gray-500">限內部流通等級</p>
+</div>
+</div>
+<div class="list-group">
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>內部電子郵件內容</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>會議紀錄、錄音檔</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>員工績效考核、薪資單</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>未公開之策略簡報</p></div>
+</div>
+</div>
+<!-- Category 4: Tech & Security -->
+<div class="check-category cat-sec">
+<div class="cat-header">
+<div class="cat-icon"><i class="fas fa-key"></i></div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg">系統與資安資訊</h4>
+<p class="text-xs text-gray-500">防止駭客攻擊</p>
+</div>
+</div>
+<div class="list-group">
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>內部系統登入帳號密碼</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>API 金鑰 (API Keys)</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>軟體程式原始碼</p></div>
+<div class="list-item"><i class="fas fa-times-circle x-mark"></i><p>網路架構圖、IP配置</p></div>
+</div>
+</div>
+</div>
+<!-- Bottom Warning -->
+<div class="bottom-warning">
+<i class="fas fa-exclamation-circle mr-2"></i>
+                    實務建議：若必須使用 AI 潤飾文案，請務必先將上述敏感資料進行 <span class="border-b-2 border-red-800 font-bold">去識別化</span> (如：將姓名改為王大明、金額改為XXX)
+                </div>
+</div>
+</div>
+<!-- Page Number -->
+<div class="absolute bottom-6 right-8 text-gray-400 font-bold text-sm">08</div>
+</div>
+</body>
+</html>
