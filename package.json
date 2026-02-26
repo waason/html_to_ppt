@@ -1,0 +1,8 @@
+{
+  "name": "html-to-pptx",
+  "version": "1.0.0",
+  "dependencies": {
+    "puppeteer": "^22.0.0",
+    "pptxgenjs": "^3.12.0"
+  }
+}
