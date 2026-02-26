@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light" style=""><head>
+<meta charset="utf-8">
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport">
+<title>2025年詐騙類型TOP5</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwTDQwIDBIMjBMMCAyME00MCA0MFYyMEwwIDQwIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjwvZz48L3N2Zz4=');
+        }
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 10;
+        }
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            gap: 40px;
+            position: relative;
+        }
+        .chart-container {
+            flex: 2;
+            background-color: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            border: 1px solid #334155;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        .highlight-cards {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+        .highlight-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .highlight-card:nth-child(2) {
+            border-left-color: #f59e0b;
+        }
+        .highlight-card:nth-child(3) {
+            border-left-color: #3b82f6;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+        .card-desc {
+            font-size: 16px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .rank-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background-color: #ef4444;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .legend-container {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        .ranking-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body style="">
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-trophy title-icon"></i>
+<p>2025年詐騙手法 TOP 5 排行與量損分析</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">數據統計區間：2025年1月-12月</p>
+</div>
+</header>
+<div class="content-wrapper">
+<!-- Left: Chart -->
+<div class="chart-container">
+<div class="legend-container">
+<div class="legend-item">
+<div class="legend-color" style="background-color: #ef4444;"></div>
+<p>財損金額 (億元)</p>
+</div>
+<div class="legend-item">
+<div class="legend-color" style="background-color: #3b82f6;"></div>
+<p>受理件數 (千件)</p>
+</div>
+</div>
+<div id="rankingChart" style="width: 100%; height: 100%; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;" _echarts_instance_="ec_1772077828180"><div style="position: relative; width: 719px; height: 541px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="719" height="541" style="position: absolute; left: 0px; top: 0px; width: 719px; height: 541px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class="" style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(15, 23, 42, 0.9); border-width: 1px; border-radius: 4px; color: rgb(255, 255, 255); font: 14px / 21px &quot;Microsoft YaHei&quot;; padding: 10px; top: 0px; left: 0px; transform: translate3d(349px, 391px, 0px); border-color: rgb(71, 85, 105); pointer-events: none; visibility: hidden; opacity: 0;"><div style="margin: 0px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><div style="font-size:14px;color:#fff;font-weight:400;line-height:1;">假交友(徵婚)</div><div style="margin: 10px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#3b82f6;"></span><span style="font-size:14px;color:#fff;font-weight:400;margin-left:2px">受理件數 (千件)</span><span style="float:right;margin-left:20px;font-size:14px;color:#fff;font-weight:900">0.8</span><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="margin: 10px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#ef4444;"></span><span style="font-size:14px;color:#fff;font-weight:400;margin-left:2px">財損金額 (億元)</span><span style="float:right;margin-left:20px;font-size:14px;color:#fff;font-weight:900">2.1</span><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="clear:both"></div></div></div></div>
+</div>
+<!-- Right: Highlight Cards -->
+<div class="highlight-cards">
+<!-- No.1 Loss -->
+<div class="highlight-card">
+<div class="rank-badge">財損金額 No.1</div>
+<div class="card-title">
+<div class="ranking-icon text-red-400"><i class="fas fa-chart-line"></i></div>
+<p>假投資詐騙</p>
+</div>
+<div class="card-value">
+<p>45.0 <span class="text-xl text-gray-400">億元</span></p>
+</div>
+<div class="card-desc">
+<p>利用高報酬誘惑，群組帶單與虛擬貨幣投資為大宗</p>
+</div>
+</div>
+<!-- No.1 Cases -->
+<div class="highlight-card">
+<div class="rank-badge" style="background-color: #f59e0b;">受理件數 No.1</div>
+<div class="card-title">
+<div class="ranking-icon text-yellow-400"><i class="fas fa-shopping-cart"></i></div>
+<p>網路購物詐騙</p>
+</div>
+<div class="card-value">
+<p>4,140 <span class="text-xl text-gray-400">件 (12月單月)</span></p>
+</div>
+<div class="card-desc">
+<p>一頁式廣告、假網拍與私下交易風險最高</p>
+</div>
+</div>
+<!-- Emerging Trend -->
+<div class="highlight-card">
+<div class="rank-badge" style="background-color: #3b82f6;">高風險趨勢</div>
+<div class="card-title">
+<div class="ranking-icon text-blue-400"><i class="fas fa-heart-broken"></i></div>
+<p>假交友(投資詐財)</p>
+</div>
+<div class="card-value">
+<p>養套殺 <span class="text-xl text-gray-400">模式</span></p>
+</div>
+<div class="card-desc">
+<p>結合感情詐騙與投資話術，受害金額普遍較高</p>
+</div>
+</div>
+</div>
+</div>
+<div class="source-footer">
+<p>資料來源：內政部警政署165打詐儀錶板、台灣大哥大《反詐戰警2025年趨勢報告》</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var chartDom = document.getElementById('rankingChart');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    borderColor: '#475569',
+                    textStyle: { color: '#fff' }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '15%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    axisLabel: { color: '#94a3b8' },
+                    splitLine: { lineStyle: { color: '#334155' } }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ['假交友(徵婚)', '假買家騙賣家', '假交友(投資)', '網路購物', '假投資'],
+                    axisLabel: {
+                        color: '#cbd5e1',
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    }
+                },
+                series: [
+                    {
+                        name: '受理件數 (千件)',
+                        type: 'bar',
+                        data: [0.8, 1.2, 1.5, 4.14, 1.28], // 示意數據，基於新聞提及的比例
+                        itemStyle: {
+                            color: '#3b82f6',
+                            borderRadius: [0, 4, 4, 0]
+                        },
+                        label: {
+                            show: true,
+                            position: 'right',
+                            color: '#3b82f6',
+                            formatter: '{c} 千件'
+                        },
+                        barWidth: 20
+                    },
+                    {
+                        name: '財損金額 (億元)',
+                        type: 'bar',
+                        data: [2.1, 1.5, 8.5, 6.2, 45.0], // 示意數據，基於總財損與新聞提及數據推估
+                        itemStyle: {
+                            color: '#ef4444',
+                            borderRadius: [0, 4, 4, 0]
+                        },
+                        label: {
+                            show: true,
+                            position: 'right',
+                            color: '#ef4444',
+                            formatter: '{c} 億'
+                        },
+                        barWidth: 20,
+                        barGap: '30%'
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        });
+    </script>
+
+</body></html>

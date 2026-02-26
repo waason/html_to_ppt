@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>2025年詐騙廣告手法重點總結</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0f172a;
+        }
+        
+        /* Header */
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 10;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            gap: 50px;
+        }
+
+        /* Columns */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .col-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .col-icon {
+            font-size: 28px;
+        }
+
+        .col-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Left Column Specifics (Trends) */
+        .col-left .col-icon { color: #f59e0b; }
+        .col-left .col-title { color: #f59e0b; }
+
+        .trend-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border-left: 6px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .trend-card:hover {
+            background-color: rgba(30, 41, 59, 0.9);
+            transform: translateX(5px);
+        }
+
+        .trend-icon-box {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #e2e8f0;
+        }
+
+        .card-desc {
+            font-size: 16px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* Right Column Specifics (Principles) */
+        .col-right .col-icon { color: #10b981; }
+        .col-right .col-title { color: #10b981; }
+
+        .principle-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid #334155;
+            border-radius: 50px; /* Pill shape */
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle-card.highlight {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+        }
+
+        .principle-num {
+            font-size: 32px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .principle-icon {
+            color: #34d399;
+            font-size: 24px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .principle-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+        
+        .principle-sub {
+            font-size: 16px;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-left: 10px;
+        }
+
+        /* 165 Call to Action */
+        .cta-box {
+            margin-top: auto;
+            background-color: #ef4444;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .cta-text {
+            font-size: 22px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-bullhorn title-icon"></i>
+<p>2025年詐騙廣告手法重點總結</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">掌握趨勢，落實防範</p>
+</div>
+</header>
+<div class="content-wrapper">
+<!-- Left Column: Trends -->
+<div class="column col-left">
+<div class="col-header">
+<i class="fas fa-chart-line col-icon"></i>
+<p class="col-title">全年趨勢三大重點</p>
+</div>
+<!-- Trend 1 -->
+<div class="trend-card">
+<div class="trend-icon-box">
+<i class="fas fa-exchange-alt"></i>
+</div>
+<div class="card-content">
+<p class="card-title">投資轉向導購</p>
+<p class="card-desc">上半年以「假投資」帶單為主，下半年轉向「生活化導購」與「假福利」，降低民眾戒心。</p>
+</div>
+</div>
+<!-- Trend 2 -->
+<div class="trend-card">
+<div class="trend-icon-box">
+<i class="fas fa-robot"></i>
+</div>
+<div class="card-content">
+<p class="card-title">AI 深偽技術威脅</p>
+<p class="card-desc">名人肖像、聲音與視訊皆可偽造，眼見不一定為憑，大幅增加識別難度。</p>
+</div>
+</div>
+<!-- Trend 3 -->
+<div class="trend-card">
+<div class="trend-icon-box">
+<i class="fas fa-calendar-alt"></i>
+</div>
+<div class="card-content">
+<p class="card-title">年末混合型高峰</p>
+<p class="card-desc">結合「投資」與「購物季」的混合劇本，利用雙11、黑五等促銷檔期進行大規模收割。</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Principles -->
+<div class="column col-right">
+<div class="col-header">
+<i class="fas fa-shield-alt col-icon"></i>
+<p class="col-title">防詐四大金科玉律</p>
+</div>
+<!-- Principle 1 -->
+<div class="principle-card">
+<i class="fas fa-exclamation-triangle principle-icon text-yellow-400"></i>
+<div class="flex-1">
+<span class="principle-text">急迫感 = 詐騙信號</span>
+<span class="principle-sub">限時/倒數/名額有限</span>
+</div>
+<span class="principle-num">01</span>
+</div>
+<!-- Principle 2 -->
+<div class="principle-card">
+<i class="fas fa-ban principle-icon text-red-400"></i>
+<div class="flex-1">
+<span class="principle-text">天下沒有白吃的午餐</span>
+<span class="principle-sub">高獲利/免費領取多是假</span>
+</div>
+<span class="principle-num">02</span>
+</div>
+<!-- Principle 3 -->
+<div class="principle-card">
+<i class="fas fa-search principle-icon text-blue-400"></i>
+<div class="flex-1">
+<span class="principle-text">無法查證 = 不行動</span>
+<span class="principle-sub">找不到官方公告就不要點</span>
+</div>
+<span class="principle-num">03</span>
+</div>
+<!-- Principle 4 / CTA -->
+<div class="cta-box">
+<i class="fas fa-phone-volume text-3xl text-white"></i>
+<p class="cta-text">有疑慮？立刻撥打 165 求證</p>
+</div>
+</div>
+</div>
+<div class="source-footer">
+<p>資料來源：內政部警政署、資安院、趨勢科技</p>
+</div>
+</div>
+</body>
+</html>

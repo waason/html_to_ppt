@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>高風險關鍵字速查表</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0f172a;
+        }
+        
+        /* Header */
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: #0f172a;
+            z-index: 10;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+
+        /* Content Area */
+        .content-wrapper {
+            flex: 1;
+            padding: 30px 60px 40px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: #cbd5e1;
+            background-color: rgba(30, 41, 59, 0.5);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid Layout for Tag Clouds */
+        .tag-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            flex: 1;
+        }
+
+        .category-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Category Header */
+        .cat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .cat-title {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .risk-badge {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Tag Cloud Container */
+        .cloud-container {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-content: flex-start;
+        }
+
+        /* Tag Styles */
+        .tag {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: default;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        .tag:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        /* Specific Color Themes */
+        
+        /* 1. Investment (Red - Highest Risk) */
+        .cat-invest { border-color: #7f1d1d; background-color: rgba(69, 10, 10, 0.4); }
+        .cat-invest .cat-title { color: #f87171; }
+        .cat-invest .risk-badge { background-color: #ef4444; color: white; }
+        .tag-invest {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
+        }
+        .tag-invest-highlight {
+            background-color: #ef4444;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        /* 2. Shopping/Data (Orange - High Risk) */
+        .cat-shop { border-color: #7c2d12; background-color: rgba(67, 20, 7, 0.4); }
+        .cat-shop .cat-title { color: #fb923c; }
+        .cat-shop .risk-badge { background-color: #f97316; color: white; }
+        .tag-shop {
+            background-color: rgba(249, 115, 22, 0.2);
+            color: #fdba74;
+            border-color: rgba(249, 115, 22, 0.5);
+        }
+        .tag-shop-highlight {
+            background-color: #f97316;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* 3. General Warning (Red/Pink - Critical) */
+        .cat-general { border-color: #831843; background-color: rgba(80, 7, 36, 0.4); }
+        .cat-general .cat-title { color: #f472b6; }
+        .cat-general .risk-badge { background-color: #ec4899; color: white; }
+        .tag-general {
+            background-color: rgba(236, 72, 153, 0.2);
+            color: #fbcfe8;
+            border-color: rgba(236, 72, 153, 0.5);
+        }
+        .tag-general-highlight {
+            background-color: #ec4899;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* 4. Action/Urgency (Yellow - Warning) */
+        .cat-action { border-color: #713f12; background-color: rgba(66, 32, 6, 0.4); }
+        .cat-action .cat-title { color: #facc15; }
+        .cat-action .risk-badge { background-color: #eab308; color: black; }
+        .tag-action {
+            background-color: rgba(234, 179, 8, 0.2);
+            color: #fde047;
+            border-color: rgba(234, 179, 8, 0.5);
+        }
+        .tag-action-highlight {
+            background-color: #eab308;
+            color: black;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-tags title-icon"></i>
+<p>高風險關鍵字速查表</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">看到這些詞彙請提高警覺</p>
+</div>
+</header>
+<div class="content-wrapper">
+<div class="intro-text">
+<i class="fas fa-info-circle text-yellow-500"></i>
+<p>詐騙廣告常使用特定高頻詞彙，透過文字雲分析可快速識別潛在風險。</p>
+</div>
+<div class="tag-grid">
+<!-- Category 1: Investment (Red) -->
+<div class="category-card cat-invest">
+<div class="cat-header">
+<div class="cat-title">
+<i class="fas fa-chart-line"></i> 投資理財類
+                        </div>
+<span class="risk-badge">極高風險</span>
+</div>
+<div class="cloud-container">
+<span class="tag tag-invest-highlight"><i class="fas fa-fire"></i> 保證獲利</span>
+<span class="tag tag-invest">穩賺不賠</span>
+<span class="tag tag-invest-highlight">內線消息</span>
+<span class="tag tag-invest">報牌</span>
+<span class="tag tag-invest">飆股</span>
+<span class="tag tag-invest-highlight">明牌</span>
+<span class="tag tag-invest">專屬管道</span>
+<span class="tag tag-invest">高報酬</span>
+<span class="tag tag-invest">輕鬆翻倍</span>
+<span class="tag tag-invest">被動收入</span>
+</div>
+</div>
+<!-- Category 2: Shopping/Data (Orange) -->
+<div class="category-card cat-shop">
+<div class="cat-header">
+<div class="cat-title">
+<i class="fas fa-gift"></i> 導購與個資類
+                        </div>
+<span class="risk-badge">高風險</span>
+</div>
+<div class="cloud-container">
+<span class="tag tag-shop-highlight">免費領取</span>
+<span class="tag tag-shop">限時優惠</span>
+<span class="tag tag-shop-highlight">填表領取</span>
+<span class="tag tag-shop">會員福利</span>
+<span class="tag tag-shop-highlight">輸入驗證碼</span>
+<span class="tag tag-shop">抽獎活動</span>
+<span class="tag tag-shop">問卷禮券</span>
+<span class="tag tag-shop">補繳運費</span>
+<span class="tag tag-shop">包裹異常</span>
+</div>
+</div>
+<!-- Category 3: General Warning (Pink/Red) -->
+<div class="category-card cat-general">
+<div class="cat-header">
+<div class="cat-title">
+<i class="fas fa-exclamation-circle"></i> 通用警示行為
+                        </div>
+<span class="risk-badge">危險動作</span>
+</div>
+<div class="cloud-container">
+<span class="tag tag-general-highlight">要求匯款</span>
+<span class="tag tag-general">購買點數</span>
+<span class="tag tag-general-highlight">加密貨幣交易</span>
+<span class="tag tag-general">ATM解除分期</span>
+<span class="tag tag-general">繳納保證金</span>
+<span class="tag tag-general-highlight">短時間付款</span>
+<span class="tag tag-general">提供帳密</span>
+<span class="tag tag-general">代操</span>
+</div>
+</div>
+<!-- Category 4: Urgency/Action (Yellow) -->
+<div class="category-card cat-action">
+<div class="cat-header">
+<div class="cat-title">
+<i class="fas fa-bolt"></i> 引導與急迫話術
+                        </div>
+<span class="risk-badge">促發因子</span>
+</div>
+<div class="cloud-container">
+<span class="tag tag-action-highlight">限量名額</span>
+<span class="tag tag-action">立即行動</span>
+<span class="tag tag-action-highlight">加LINE私訊</span>
+<span class="tag tag-action">私訊專人</span>
+<span class="tag tag-action">不要錯過</span>
+<span class="tag tag-action">倒數計時</span>
+<span class="tag tag-action">僅此一次</span>
+<span class="tag tag-action">助理帶操作</span>
+<span class="tag tag-action-highlight">點擊連結</span>
+</div>
+</div>
+</div>
+<div class="source-footer">
+<p>資料來源：資安院、165反詐騙諮詢專線</p>
+</div>
+</div>
+</div>
+</body>
+</html>

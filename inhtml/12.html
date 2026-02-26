@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>AI深偽技術讓詐騙升級</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0f172a;
+            /* Using solid color instead of gradient for compatibility */
+        }
+        
+        .header {
+            padding: 30px 60px 10px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: #0f172a;
+            z-index: 10;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            margin: 0;
+            text-align: right;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            padding: 30px 60px 40px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .impact-banner {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .impact-text {
+            color: #fca5a5;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            flex: 1;
+        }
+        
+        .grid-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .grid-card:hover {
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+        
+        .grid-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background-color: #3b82f6;
+        }
+        
+        .grid-card.card-1::before { background-color: #ef4444; } /* Red for Deepfake */
+        .grid-card.card-2::before { background-color: #3b82f6; } /* Blue for Chat */
+        .grid-card.card-3::before { background-color: #f59e0b; } /* Orange for Fake App */
+        .grid-card.card-4::before { background-color: #10b981; } /* Green for Fast Scam */
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .card-1 .card-icon-box { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .card-2 .card-icon-box { background-color: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .card-3 .card-icon-box { background-color: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .card-4 .card-icon-box { background-color: rgba(16, 185, 129, 0.2); color: #10b981; }
+        
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+        }
+        
+        .card-content {
+            flex: 1;
+        }
+        
+        .feature-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+        
+        .feature-item i {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .card-1 .feature-item i { color: #ef4444; }
+        .card-2 .feature-item i { color: #3b82f6; }
+        .card-3 .feature-item i { color: #f59e0b; }
+        .card-4 .feature-item i { color: #10b981; }
+
+        .stat-highlight {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-right: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #94a3b8;
+        }
+
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .ai-chip {
+            background-color: #1e293b;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #94a3b8;
+            border: 1px solid #334155;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-robot title-icon"></i>
+<p>AI深偽技術讓詐騙升級：4大應用</p>
+</div>
+<div class="subtitle">
+<p>技術門檻降低，詐騙規模化與自動化成新常態</p>
+</div>
+</header>
+<div class="content-wrapper">
+<div class="impact-banner">
+<p class="impact-text">
+<i class="fas fa-exclamation-triangle"></i>
+<span>警示：AI技術可將詐騙營運成本降低 <strong style="color: #ffffff; font-size: 24px;">90%</strong> 以上，且擬真度大幅提升</span>
+</p>
+<div style="display: flex; align-items: center;">
+<i class="fas fa-chart-line" style="color: #ef4444; margin-right: 8px;"></i>
+<span style="color: #cbd5e1; font-size: 16px;">威脅指數：極高</span>
+</div>
+</div>
+<div class="grid-container">
+<!-- Card 1: Deepfake -->
+<div class="grid-card card-1">
+<div class="ai-chip"><i class="fas fa-video"></i> Generative Video</div>
+<div class="card-header">
+<div class="card-icon-box">
+<i class="fas fa-user-secret"></i>
+</div>
+<p class="card-title">深偽影像 (Deepfake)</p>
+</div>
+<div class="card-content">
+<ul class="feature-list">
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>名人肖像假代言：</strong>利用AI換臉技術，偽造名人推薦投資影片，口型與表情高度同步。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>聲音合成詐騙：</strong>採集親友聲音樣本，生成求救或借款語音，突破電話確認防線。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>視訊面試冒充：</strong>即時視訊換臉，假冒求職者或高管進行詐騙。</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Card 2: AI Chat -->
+<div class="grid-card card-2">
+<div class="ai-chip"><i class="fas fa-comments"></i> LLM Chatbot</div>
+<div class="card-header">
+<div class="card-icon-box">
+<i class="fas fa-comment-alt"></i>
+</div>
+<p class="card-title">AI自動對話</p>
+</div>
+<div class="card-content">
+<ul class="feature-list">
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>大量生成逼真訊息：</strong>利用大型語言模型(LLM)，自動生成符合受害者語境的聊天內容。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>全天候養套殺：</strong>AI機器人24小時陪聊建立情感，無須人工介入即可完成「養」的階段。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>多語言即時翻譯：</strong>突破語言障礙，跨國詐騙更無縫。</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Card 3: Fake Sites -->
+<div class="grid-card card-3">
+<div class="ai-chip"><i class="fas fa-code"></i> Auto Coding</div>
+<div class="card-header">
+<div class="card-icon-box">
+<i class="fas fa-globe"></i>
+</div>
+<p class="card-title">假App / 假網站</p>
+</div>
+<div class="card-content">
+<ul class="feature-list">
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>快速複製官方平台：</strong>AI能瞬間解析並複製正規網站程式碼，製作高仿真釣魚網站。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>自動化生成變體：</strong>批量產出數千個不同網域的假網頁，逃避黑名單封鎖。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>偽造應用程式：</strong>生成含惡意程式的投資App，介面專業難辨真假。</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Card 4: Fast Scam -->
+<div class="grid-card card-4">
+<div class="ai-chip"><i class="fas fa-bolt"></i> Speed</div>
+<div class="card-header">
+<div class="card-icon-box">
+<i class="fas fa-stopwatch"></i>
+</div>
+<p class="card-title">快閃詐騙鏈</p>
+</div>
+<div class="card-content">
+<div style="display: flex; align-items: baseline; margin-bottom: 15px;">
+<span class="stat-highlight">96%</span>
+<span class="stat-label">詐騙網站於24小時內消失</span>
+</div>
+<ul class="feature-list">
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>即生即滅：</strong>網站存活時間極短，受害者下單匯款後網站即刻關閉。</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-circle"></i>
+<p><strong>難以溯源：</strong>利用AI自動化部署與銷毀，執法單位難以保全證據。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="source-footer">
+<p>資料來源：趨勢科技、資安院、台灣大哥大《反詐戰警2025年趨勢報告》</p>
+</div>
+</div>
+</body>
+</html>
