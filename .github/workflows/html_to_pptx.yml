@@ -2,8 +2,9 @@ name: Generate PPTX from HTML
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch: # 允許手動執行
+    paths:
+      - 'html_to_ppt/outhtml/**' # 只有當 HTML 資料夾變動時才執行
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,14 +18,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm init -y
+          npm install puppeteer pptxgenjs
 
-      - name: Install Google Chrome (for Puppeteer)
+      - name: Install Chinese Fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-color-emoji
 
       - name: Run conversion script
         run: node scripts/convert.js
@@ -33,4 +37,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Anti-Scam-Presentation
-          path: Anti-Scam-2025.pptx
+          path: "*.pptx"
+          retention-days: 7
