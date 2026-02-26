@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>資源與聯絡</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0f172a;
+        }
+        
+        /* Header */
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: #0f172a;
+            z-index: 10;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+
+        /* Content Area */
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Top Section: Key Resources Cards */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .resource-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: rgba(15, 23, 42, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border: 2px solid #475569;
+        }
+
+        .card-icon {
+            font-size: 32px;
+        }
+
+        /* Specific Card Styles */
+        .card-1 .card-icon { color: #ef4444; }
+        .card-1:hover .card-icon-box { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.1); }
+        
+        .card-2 .card-icon { color: #f59e0b; }
+        .card-2:hover .card-icon-box { border-color: #f59e0b; background-color: rgba(245, 158, 11, 0.1); }
+        
+        .card-3 .card-icon { color: #3b82f6; }
+        .card-3:hover .card-icon-box { border-color: #3b82f6; background-color: rgba(59, 130, 246, 0.1); }
+
+        .resource-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .resource-url {
+            font-size: 16px;
+            color: #94a3b8;
+            font-family: monospace;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .resource-desc {
+            font-size: 15px;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Bottom Section: Data Sources */
+        .sources-section {
+            background-color: #1e293b;
+            border-left: 5px solid #64748b;
+            border-radius: 8px;
+            padding: 20px 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sources-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sources-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 40px;
+        }
+
+        .source-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        .source-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #64748b;
+            border-radius: 50%;
+        }
+
+        /* Footer CTA */
+        .cta-footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px dashed #ef4444;
+            border-radius: 12px;
+            color: #fca5a5;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .qr-placeholder {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            opacity: 0.1;
+            font-size: 60px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-link title-icon"></i>
+<p>資源與聯絡</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">官方查證管道與資料來源</p>
+</div>
+</header>
+<div class="content-wrapper">
+<!-- Key Resources Cards -->
+<div class="resources-grid">
+<!-- Resource 1 -->
+<div class="resource-card card-1">
+<i class="fas fa-qrcode qr-placeholder"></i>
+<div class="card-icon-box">
+<i class="fas fa-globe card-icon"></i>
+</div>
+<p class="resource-title">165 全民防騙網</p>
+<p class="resource-url">165.npa.gov.tw</p>
+<p class="resource-desc">提供最新詐騙手法案例宣導、檢舉管道與防騙知識庫。</p>
+</div>
+<!-- Resource 2 -->
+<div class="resource-card card-2">
+<i class="fas fa-chart-line qr-placeholder"></i>
+<div class="card-icon-box">
+<i class="fas fa-tachometer-alt card-icon"></i>
+</div>
+<p class="resource-title">165 打詐儀錶板</p>
+<p class="resource-url">165dashboard.tw</p>
+<p class="resource-desc">即時更新全台詐騙受理件數、財損金額與高發手法統計。</p>
+</div>
+<!-- Resource 3 -->
+<div class="resource-card card-3">
+<i class="fas fa-shield-alt qr-placeholder"></i>
+<div class="card-icon-box">
+<i class="fas fa-user-shield card-icon"></i>
+</div>
+<p class="resource-title">刑事警察局</p>
+<p class="resource-url">cib.npa.gov.tw</p>
+<p class="resource-desc">重大刑案新聞發布、預防犯罪宣導與警政服務入口。</p>
+</div>
+</div>
+<!-- Data Sources -->
+<div class="sources-section">
+<div class="sources-title">
+<i class="fas fa-database text-blue-400"></i>
+<p>本簡報數據與資料來源</p>
+</div>
+<div class="sources-list">
+<div class="source-item">
+<div class="source-dot"></div>
+<p>內政部警政署 165 打詐儀錶板 (2025全年數據)</p>
+</div>
+<div class="source-item">
+<div class="source-dot"></div>
+<p>財團法人資安院 2025 高風險廣告趨勢報告</p>
+</div>
+<div class="source-item">
+<div class="source-dot"></div>
+<p>趨勢科技 2026 年詐騙趨勢報告</p>
+</div>
+<div class="source-item">
+<div class="source-dot"></div>
+<p>台灣大《反詐戰警 2025 年趨勢報告》</p>
+</div>
+<div class="source-item">
+<div class="source-dot"></div>
+<p>中央社新聞報導 (2026年2月6日)</p>
+</div>
+<div class="source-item">
+<div class="source-dot"></div>
+<p>Meta 透明度報告與資安防護成效說明</p>
+</div>
+</div>
+</div>
+<!-- CTA Footer -->
+<div class="cta-footer">
+<i class="fas fa-bullhorn"></i>
+<p>防詐是每個人的責任 — 請將本資訊轉發給身邊的家人與朋友</p>
+</div>
+</div>
+</div>
+</body>
+</html>

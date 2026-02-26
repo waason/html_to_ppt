@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>6月：手法轉換與觀望期</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-image: url("https://page.gensparksite.com/slides_images/2a6908428bae2f9367589fa1bae39129.webp");
+            background-size: cover;
+            background-blend-mode: multiply;
+            background-color: rgba(15, 23, 42, 0.9);
+        }
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 10;
+        }
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            gap: 40px;
+            position: relative;
+        }
+        
+        /* Spotlight Card Layout */
+        .spotlight-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .spotlight-right {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .highlight-card {
+            background-color: rgba(30, 41, 59, 0.85);
+            border: 1px solid #475569;
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-card.primary {
+            border-left: 6px solid #3b82f6;
+            background-color: rgba(30, 58, 138, 0.4);
+        }
+
+        .highlight-card.alert {
+            border-left: 6px solid #ef4444;
+            background-color: rgba(127, 29, 29, 0.4);
+        }
+
+        .highlight-card.warning {
+            border-left: 6px solid #f59e0b;
+            background-color: rgba(180, 83, 9, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
+            padding-bottom: 12px;
+        }
+
+        .card-icon {
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tag {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tag-orange {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fdba74;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+        }
+
+        .tag-green {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+
+        /* Flow Process */
+        .flow-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 15px;
+            background-color: rgba(15, 23, 42, 0.6);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            width: 100px;
+        }
+
+        .flow-icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: #1e293b;
+            border: 3px solid #f59e0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #f59e0b;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+        
+        .flow-icon-circle.danger {
+            border-color: #ef4444;
+            color: #ef4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .flow-text {
+            font-size: 16px;
+            color: #e2e8f0;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .flow-text.danger {
+            color: #fca5a5;
+        }
+
+        .flow-arrow {
+            color: #64748b;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* Quarter Badge */
+        .month-badge {
+            background-color: #f59e0b;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-meter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .meter-bar {
+            flex: 1;
+            height: 16px;
+            background-color: #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #475569;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background-color: #f59e0b;
+            width: 65%; /* Medium-High Risk */
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .meter-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            background-size: 1rem 1rem;
+        }
+
+        .risk-text {
+            font-size: 24px;
+            font-weight: 900;
+            color: #f59e0b;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 18px;
+            color: #e2e8f0;
+            line-height: 1.5;
+            background-color: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .feature-icon {
+            color: #f59e0b;
+            margin-top: 4px;
+            font-size: 20px;
+        }
+
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #94a3b8;
+            background-color: rgba(15, 23, 42, 0.8);
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+        
+        .trend-icon {
+            font-size: 32px;
+            color: #10b981;
+            margin-right: 10px;
+        }
+        
+        .trend-text {
+            font-size: 16px;
+            color: #cbd5e1;
+        }
+        
+        .trend-box {
+            display: flex;
+            align-items: center;
+            background-color: rgba(16, 185, 129, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-random title-icon"></i>
+<p>6月：手法轉換與觀望期</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">關鍵字：資金周轉、貸款協助、快速撥款</p>
+</div>
+</header>
+<div class="content-wrapper">
+<!-- Left Column -->
+<div class="spotlight-left">
+<div>
+<div class="month-badge"><i class="fas fa-sync-alt"></i> 手法轉型期</div>
+</div>
+<div class="highlight-card warning">
+<div class="card-header">
+<i class="fas fa-comments card-icon text-yellow-400"></i>
+<p class="card-title">新話術：生活化與服務化</p>
+</div>
+<div class="tag-container">
+<div class="tag tag-orange"><i class="fas fa-hand-holding-usd"></i> 資金周轉</div>
+<div class="tag tag-orange"><i class="fas fa-file-contract"></i> 貸款協助</div>
+<div class="tag tag-orange"><i class="fas fa-shipping-fast"></i> 快速撥款</div>
+<div class="tag tag-orange"><i class="fas fa-smile"></i> 親切客服</div>
+<div class="tag tag-orange"><i class="fas fa-user-friends"></i> 專人服務</div>
+</div>
+</div>
+<div class="highlight-card">
+<div class="card-header">
+<i class="fas fa-chart-area card-icon text-green-400"></i>
+<p class="card-title">趨勢觀察</p>
+</div>
+<div class="trend-box">
+<i class="fas fa-chart-line-down trend-icon"></i>
+<div>
+<p style="font-weight: 700; font-size: 18px; color: #fff;">投資型廣告投放量下降</p>
+<p class="trend-text">詐騙集團轉向測試導購/抽獎漏斗，多帳號小量投放測試受眾反應。</p>
+</div>
+</div>
+<ul class="feature-list">
+<li class="feature-item">
+<i class="fas fa-check-circle feature-icon"></i>
+<p>語氣轉變：更生活化、強調「服務」與「協助」</p>
+</li>
+<li class="feature-item">
+<i class="fas fa-check-circle feature-icon"></i>
+<p>降低戒心：強調「正規管道」、「免手續費」</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Right Column -->
+<div class="spotlight-right">
+<div class="highlight-card alert">
+<div class="card-header">
+<i class="fas fa-exclamation-triangle card-icon text-red-400"></i>
+<p class="card-title">高風險關鍵動作</p>
+</div>
+<div class="risk-meter">
+<div class="meter-bar">
+<div class="meter-fill"></div>
+</div>
+<div class="risk-text">中高</div>
+</div>
+<p style="margin-top: 15px; color: #e2e8f0; font-size: 18px;">此階段詐騙核心在於<span style="color: #ef4444; font-weight: 700;">蒐集個資</span>，為後續詐騙鋪路。</p>
+</div>
+<div class="highlight-card primary">
+<div class="card-header">
+<i class="fas fa-clipboard-list card-icon text-blue-400"></i>
+<p class="card-title">詐騙獲取路徑</p>
+</div>
+<div class="flow-container">
+<div class="flow-step">
+<div class="flow-icon-circle"><i class="fas fa-ad"></i></div>
+<p class="flow-text">貸款/服務廣告</p>
+</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-icon-circle danger"><i class="fas fa-id-card"></i></div>
+<p class="flow-text danger">要求個資表單</p>
+</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-icon-circle danger"><i class="fas fa-fingerprint"></i></div>
+<p class="flow-text danger">身分證字號</p>
+</div>
+</div>
+<div style="margin-top: 20px; background-color: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 15px; border-radius: 10px;">
+<p style="color: #fca5a5; font-size: 16px; margin: 0;"><i class="fas fa-info-circle"></i> 警示：切勿輕易在非官方平台填寫身分證字號或上傳證件照片！</p>
+</div>
+</div>
+</div>
+<div class="source-footer">
+<p>資料來源：資安院2025高風險廣告趨勢觀察</p>
+</div>
+</div>
+</div>
+</body>
+</html>
