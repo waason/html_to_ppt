@@ -5,35 +5,35 @@ const path = require('path');
 
 async function run() {
     const pptx = new PptxGenJS();
-    pptx.layout = 'LAYOUT_WIDE'; // 設定為 16:9 寬螢幕
+    pptx.layout = 'LAYOUT_WIDE'; // 符合您的 1280x720 設計比例
 
-    // 指定您的路徑
-    const htmlDir = path.join(__dirname, '../html_to_ppt/outhtml');
-    
-    // 讀取該資料夾下所有 .html 檔案並排序 (1.html, 2.html...)
+    // 路徑定義
+    const htmlDir = path.join(process.cwd(), 'html_to_ppt/outhtml');
+    const outDir = path.join(process.cwd(), 'outppt');
+
+    // 自動建立輸出目錄
+    if (!fs.existsSync(outDir)) {
+        fs.mkdirSync(outDir, { recursive: true });
+    }
+
+    // 讀取並排序 1.html ~ 20.html
     const files = fs.readdirSync(htmlDir)
         .filter(file => file.endsWith('.html'))
         .sort((a, b) => parseInt(a) - parseInt(b));
 
-    const browser = await puppeteer.launch({ 
-        args: ['--no-sandbox', '--disable-setuid-sandbox'] 
-    });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 720 });
 
-    console.log(`找到 ${files.length} 份檔案，開始轉換...`);
-
     for (const file of files) {
+        console.log(`正在處理第 ${file} 頁...`);
         const filePath = path.join(htmlDir, file);
-        console.log(`正在處理: ${file}`);
-        
         await page.goto(`file://${filePath}`, { waitUntil: 'networkidle0' });
         
-        // 針對 2025 詐騙分析簡報的動畫，等待 500ms 確保渲染完成
-        await new Promise(r => setTimeout(r, 500));
+        // 確保 2025 年詐騙概況等複雜數據與動畫渲染完成
+        await new Promise(r => setTimeout(r, 500)); 
 
         const screenshot = await page.screenshot({ encoding: 'base64' });
-        
         const slide = pptx.addSlide();
         slide.addImage({ 
             data: `image/png;base64,${screenshot}`, 
@@ -41,9 +41,12 @@ async function run() {
         });
     }
 
-    const outputFile = '2025_詐騙高風險廣告手法分析.pptx';
-    await pptx.writeFile({ fileName: outputFile });
-    console.log(`✅ 轉換完成！檔案已儲存為: ${outputFile}`);
+    const outputFileName = '2025_詐騙趨勢分析報告.pptx';
+    const outputPath = path.join(outDir, outputFileName);
+    
+    // 使用 await 確保檔案完全寫入磁碟
+    await pptx.writeFile({ fileName: outputPath });
+    console.log(`✅ 成功產出至: ${outputPath}`);
     
     await browser.close();
 }
