@@ -3,7 +3,7 @@ name: Generate PPTX from HTML
 on:
   push:
     paths:
-      - 'html_to_ppt/outhtml/**'
+      - 'html_to_ppt/inhtml/**'
   workflow_dispatch:
 
 jobs:
@@ -29,20 +29,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-noto-cjk
 
-      - name: Verify Paths (Debug)
+      - name: Debug Directory Structure
         run: |
-          echo "=== 檢查當前目錄結構 ==="
-          ls -R
-          echo "=== 檢查 HTML 來源目錄 ==="
-          ls -R html_to_ppt/outhtml/ || echo "找不到目錄！"
+          echo "=== 檢查目錄層級 ==="
+          ls -R html_to_ppt/
 
       - name: Run conversion script
         run: node scripts/convert.js
-
-      - name: Check output folder
-        run: |
-          echo "=== 檢查產出結果 ==="
-          ls -R outppt/ || echo "outppt 資料夾不存在！"
 
       - name: Upload PPTX Result
         uses: actions/upload-artifact@v4
@@ -50,4 +43,3 @@ jobs:
           name: Anti-Scam-Presentation
           path: outppt/*.pptx
           if-no-files-found: error
-          retention-days: 7
