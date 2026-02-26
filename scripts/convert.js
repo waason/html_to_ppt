@@ -5,50 +5,64 @@ const path = require('path');
 
 async function run() {
     const pptx = new PptxGenJS();
-    pptx.layout = 'LAYOUT_WIDE'; // 符合您的 1280x720 設計比例
+    pptx.layout = 'LAYOUT_WIDE';
 
-    // 路徑定義
-    const htmlDir = path.join(process.cwd(), 'html_to_ppt/outhtml');
-    const outDir = path.join(process.cwd(), 'outppt');
+    // 強制使用絕對路徑
+    const rootDir = process.cwd();
+    const htmlDir = path.join(rootDir, 'html_to_ppt/outhtml');
+    const outDir = path.join(rootDir, 'outppt');
 
-    // 自動建立輸出目錄
-    if (!fs.existsSync(outDir)) {
-        fs.mkdirSync(outDir, { recursive: true });
+    console.log(`[Debug] 目標 HTML 路徑: ${htmlDir}`);
+    console.log(`[Debug] 目標輸出路徑: ${outDir}`);
+
+    if (!fs.existsSync(htmlDir)) {
+        console.error(`❌ 錯誤：找不到 HTML 資料夾！請檢查路徑是否為 html_to_ppt/outhtml`);
+        process.exit(1);
     }
 
-    // 讀取並排序 1.html ~ 20.html
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+
+    // 讀取檔案
     const files = fs.readdirSync(htmlDir)
-        .filter(file => file.endsWith('.html'))
+        .filter(f => f.endsWith('.html'))
         .sort((a, b) => parseInt(a) - parseInt(b));
 
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    if (files.length === 0) {
+        console.error(`❌ 錯誤：在資料夾內找不到任何 .html 檔案！`);
+        process.exit(1);
+    }
+
+    console.log(`✅ 找到 ${files.length} 個檔案，開始渲染...`);
+
+    const browser = await puppeteer.launch({ 
+        args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+    });
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 720 });
 
     for (const file of files) {
-        console.log(`正在處理第 ${file} 頁...`);
         const filePath = path.join(htmlDir, file);
+        // 使用 file:// 協定開啟本地檔案
         await page.goto(`file://${filePath}`, { waitUntil: 'networkidle0' });
-        
-        // 確保 2025 年詐騙概況等複雜數據與動畫渲染完成
-        await new Promise(r => setTimeout(r, 500)); 
+        await new Promise(r => setTimeout(r, 500)); // 等待動畫
 
         const screenshot = await page.screenshot({ encoding: 'base64' });
         const slide = pptx.addSlide();
-        slide.addImage({ 
-            data: `image/png;base64,${screenshot}`, 
-            x: 0, y: 0, w: '100%', h: '100%' 
-        });
+        slide.addImage({ data: `image/png;base64,${screenshot}`, x: 0, y: 0, w: '100%', h: '100%' });
+        console.log(`- 頁面 ${file} 已加入投影片`);
     }
 
-    const outputFileName = '2025_詐騙趨勢分析報告.pptx';
+    const outputFileName = '詐騙手法分析報告.pptx';
     const outputPath = path.join(outDir, outputFileName);
     
-    // 使用 await 確保檔案完全寫入磁碟
+    // 儲存檔案
     await pptx.writeFile({ fileName: outputPath });
-    console.log(`✅ 成功產出至: ${outputPath}`);
+    console.log(`\n🎉 成功！檔案已產出至: ${outputPath}`);
     
     await browser.close();
 }
 
-run().catch(console.error);
+run().catch(err => {
+    console.error('執行過程發生崩潰:', err);
+    process.exit(1);
+});
