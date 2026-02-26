@@ -18,18 +18,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # 移除 cache: 'npm' 以避免找不到 lock 檔的錯誤
 
       - name: Install dependencies
         run: |
           npm init -y
           npm install puppeteer pptxgenjs
-          # 執行完這步會自動產生 package-lock.json，但因為我們不跑 cache 所以沒關係
 
       - name: Install Chinese Fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk fonts-noto-color-emoji
+          sudo apt-get install -y fonts-noto-cjk
 
       - name: Run conversion script
         run: node scripts/convert.js
@@ -38,5 +36,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Anti-Scam-Presentation
-          path: "*.pptx"
+          # 關鍵：指向您指定的資料夾
+          path: outppt/*.pptx
           retention-days: 7
