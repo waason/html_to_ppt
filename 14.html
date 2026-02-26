@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>被偽冒最嚴重的7大產業</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0f172a;
+            /* No gradient as requested */
+        }
+        
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: #0f172a;
+            z-index: 10;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            gap: 50px;
+            position: relative;
+        }
+
+        /* Left Side: Insights */
+        .insight-column {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .insight-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .insight-card.highlight {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+
+        .insight-card.warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-color: #f59e0b;
+        }
+
+        .card-label {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .highlight .card-label { color: #fca5a5; }
+        .warning .card-label { color: #fcd34d; }
+
+        .big-stat {
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .stat-desc {
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* Right Side: Custom Bar Chart */
+        .chart-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 20px;
+        }
+
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .row-rank {
+            width: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #64748b;
+            text-align: center;
+        }
+
+        .row-icon-box {
+            width: 45px;
+            height: 45px;
+            background-color: #1e293b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: #94a3b8;
+            border: 1px solid #334155;
+            flex-shrink: 0;
+        }
+
+        .row-label {
+            width: 220px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #e2e8f0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 0;
+        }
+
+        .bar-container {
+            flex: 1;
+            height: 36px;
+            background-color: rgba(30, 41, 59, 0.5);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            transition: width 1s ease-out;
+            position: relative;
+        }
+
+        /* Bar Colors */
+        .bar-red { background-color: #ef4444; }
+        .bar-orange { background-color: #f59e0b; }
+        .bar-blue { background-color: #3b82f6; }
+        .bar-slate { background-color: #475569; }
+
+        .bar-tag {
+            position: absolute;
+            right: -85px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            width: 80px;
+            text-align: left;
+        }
+
+        .tag-growth {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            text-align: center;
+        }
+
+        .rank-1 .row-icon-box {
+            background-color: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+        
+        .rank-1 .row-label {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .rank-4 .row-icon-box {
+            background-color: #f59e0b;
+            color: #0f172a;
+            border-color: #f59e0b;
+        }
+        
+        .rank-4 .row-label {
+            color: #fbbf24;
+        }
+
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Animation for bars */
+        @keyframes slideIn {
+            from { width: 0; }
+        }
+        .bar-fill {
+            animation: slideIn 1.5s ease-out forwards;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-industry title-icon"></i>
+<p>被偽冒最嚴重的7大產業排行</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">2025年最新風險產業分布</p>
+</div>
+</header>
+<div class="content-wrapper">
+<!-- Left Side: Key Insights -->
+<div class="insight-column">
+<div class="insight-card highlight">
+<p class="card-label">NO.1 高風險產業</p>
+<p class="big-stat" style="color: #ef4444;">金融保險業</p>
+<p class="stat-desc">
+                        詐騙集團最愛偽冒銀行、投顧專員，發送投資借貸訊息，誘騙民眾登入假網頁盜取個資。
+                    </p>
+</div>
+<div class="insight-card warning">
+<p class="card-label">成長最快</p>
+<p class="big-stat" style="color: #fbbf24;">+78% <span style="font-size: 20px;">YoY</span></p>
+<p class="stat-desc">
+<strong>倉儲及物流業</strong>偽冒案件激增，利用民眾網購習慣，發送「包裹異常」或「補繳運費」釣魚簡訊。
+                    </p>
+</div>
+</div>
+<!-- Right Side: Chart -->
+<div class="chart-column">
+<!-- Rank 1 -->
+<div class="chart-row rank-1">
+<div class="row-rank">01</div>
+<div class="row-icon-box"><i class="fas fa-university"></i></div>
+<div class="row-label">金融保險業</div>
+<div class="bar-container">
+<div class="bar-fill bar-red" style="width: 100%;"></div>
+<div class="bar-tag" style="color: #ef4444;">案件居冠</div>
+</div>
+</div>
+<!-- Rank 2 -->
+<div class="chart-row">
+<div class="row-rank">02</div>
+<div class="row-icon-box"><i class="fas fa-network-wired"></i></div>
+<div class="row-label">網際通訊及系統整合</div>
+<div class="bar-container">
+<div class="bar-fill bar-blue" style="width: 82%;"></div>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="chart-row">
+<div class="row-rank">03</div>
+<div class="row-icon-box"><i class="fas fa-shopping-cart"></i></div>
+<div class="row-label">電商及零售業</div>
+<div class="bar-container">
+<div class="bar-fill bar-blue" style="width: 70%;"></div>
+</div>
+</div>
+<!-- Rank 4 -->
+<div class="chart-row rank-4">
+<div class="row-rank">04</div>
+<div class="row-icon-box"><i class="fas fa-truck-fast"></i></div>
+<div class="row-label">倉儲及物流業</div>
+<div class="bar-container">
+<div class="bar-fill bar-orange" style="width: 62%;"></div>
+<div class="bar-tag tag-growth">▲ 年增78%</div>
+</div>
+</div>
+<!-- Rank 5 -->
+<div class="chart-row">
+<div class="row-rank">05</div>
+<div class="row-icon-box"><i class="fas fa-building-columns"></i></div>
+<div class="row-label">政府機關</div>
+<div class="bar-container">
+<div class="bar-fill bar-slate" style="width: 45%;"></div>
+</div>
+</div>
+<!-- Rank 6 -->
+<div class="chart-row">
+<div class="row-rank">06</div>
+<div class="row-icon-box"><i class="fas fa-satellite-dish"></i></div>
+<div class="row-label">電信業</div>
+<div class="bar-container">
+<div class="bar-fill bar-slate" style="width: 35%;"></div>
+</div>
+</div>
+<!-- Rank 7 -->
+<div class="chart-row">
+<div class="row-rank">07</div>
+<div class="row-icon-box"><i class="fas fa-credit-card"></i></div>
+<div class="row-label">第三方支付服務業</div>
+<div class="bar-container">
+<div class="bar-fill bar-slate" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="source-footer">
+<p>資料來源：台灣大哥大《反詐戰警2025年趨勢報告》</p>
+</div>
+</div>
+</body>
+</html>

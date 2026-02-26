@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>詐騙廣告引流骨架</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwTDQwIDBIMjBMMCAyME00MCA0MFYyMEwwIDQwIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjwvZz48L3N2Zz4=');
+        }
+        .header {
+            padding: 30px 60px 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ef4444;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 10;
+        }
+        .main-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .title-icon {
+            color: #ef4444;
+            font-size: 32px;
+        }
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* Process Steps Styles */
+        .process-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            width: 100%;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .step-card {
+            flex: 1;
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            border: 2px solid;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 900;
+            font-size: 20px;
+            z-index: 2;
+        }
+        
+        .step-1 .step-number { border-color: #fbbf24; color: #fbbf24; }
+        .step-2 .step-number { border-color: #3b82f6; color: #3b82f6; }
+        .step-3 .step-number { border-color: #ef4444; color: #ef4444; }
+        
+        .step-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            font-size: 36px;
+        }
+        
+        .step-1 .step-icon-wrapper { background-color: rgba(251, 191, 36, 0.1); color: #fbbf24; }
+        .step-2 .step-icon-wrapper { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .step-3 .step-icon-wrapper { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .step-1 .step-title { color: #fbbf24; }
+        .step-2 .step-title { color: #3b82f6; }
+        .step-3 .step-title { color: #ef4444; }
+        
+        .keyword-box {
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            padding: 15px;
+            width: 100%;
+            margin-top: auto;
+        }
+        
+        .keyword-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .keyword-tag {
+            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+        
+        .arrow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #64748b;
+            padding: 0 10px;
+        }
+        
+        .final-goal {
+            margin-top: 40px;
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 2px dashed #ef4444;
+            border-radius: 12px;
+            padding: 20px 40px;
+            width: 80%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .final-goal-title {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .final-goal-desc {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .source-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<header class="header">
+<div class="main-title">
+<i class="fas fa-sitemap title-icon"></i>
+<p>詐騙廣告「引流骨架」：三步驟SOP解析</p>
+</div>
+<div style="text-align: right;">
+<p style="color: #94a3b8; font-size: 16px; margin: 0;">常見詐騙廣告運作模式</p>
+</div>
+</header>
+<div class="content-wrapper">
+<div class="process-container">
+<!-- Step 1 -->
+<div class="step-card step-1">
+<div class="step-number">1</div>
+<div class="step-icon-wrapper">
+<i class="fas fa-stopwatch"></i>
+</div>
+<p class="step-title">製造急迫感</p>
+<p style="color: #94a3b8; text-align: center; margin-bottom: 20px; font-size: 16px;">利用時間或名額壓力，讓受害者來不及思考查證。</p>
+<div class="keyword-box">
+<ul class="keyword-list">
+<li class="keyword-tag">立即行動</li>
+<li class="keyword-tag">限時優惠</li>
+<li class="keyword-tag">名額有限</li>
+<li class="keyword-tag">倒數計時</li>
+</ul>
+</div>
+</div>
+<div class="arrow-connector">
+<i class="fas fa-chevron-right"></i>
+</div>
+<!-- Step 2 -->
+<div class="step-card step-2">
+<div class="step-number">2</div>
+<div class="step-icon-wrapper">
+<i class="fas fa-comments"></i>
+</div>
+<p class="step-title">導向互動/私訊</p>
+<p style="color: #94a3b8; text-align: center; margin-bottom: 20px; font-size: 16px;">將受害者引導至封閉群組或私訊，進行洗腦與隔離。</p>
+<div class="keyword-box">
+<ul class="keyword-list">
+<li class="keyword-tag">加LINE群組</li>
+<li class="keyword-tag">私訊客服</li>
+<li class="keyword-tag">點擊連結</li>
+<li class="keyword-tag">名師指導</li>
+</ul>
+</div>
+</div>
+<div class="arrow-connector">
+<i class="fas fa-chevron-right"></i>
+</div>
+<!-- Step 3 -->
+<div class="step-card step-3">
+<div class="step-number">3</div>
+<div class="step-icon-wrapper">
+<i class="fas fa-gift"></i>
+</div>
+<p class="step-title">利益誘因/收割</p>
+<p style="color: #94a3b8; text-align: center; margin-bottom: 20px; font-size: 16px;">拋出高額獲利或免費好康，最終要求個資或金流。</p>
+<div class="keyword-box">
+<ul class="keyword-list">
+<li class="keyword-tag">免費體驗</li>
+<li class="keyword-tag">保證獲利</li>
+<li class="keyword-tag">領取好禮</li>
+<li class="keyword-tag">無風險</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="final-goal">
+<p class="final-goal-title"><i class="fas fa-bullseye"></i> 最終目的</p>
+<p class="final-goal-desc">導向金流詐騙 (匯款/投資) 或 個資竊取 (信用卡/OTP)</p>
+</div>
+<div class="source-footer">
+<p>資料來源：資安院2025詐騙高風險廣告趨勢觀察</p>
+</div>
+</div>
+</div>
+</body>
+</html>
