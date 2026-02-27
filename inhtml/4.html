@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>案例說明</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #F8FAFC;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            height: 100px;
+            background-color: #1A3A5C;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            position: relative;
+            z-index: 10;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #C9A84C;
+        }
+
+        .content-container {
+            flex: 1;
+            padding: 30px 60px;
+            display: flex;
+            gap: 24px;
+            position: relative;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .case-card {
+            flex: 1;
+            background: white;
+            border-radius: 16px; /* 圓弧外框 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #E2E8F0;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .email-simulation {
+            background-color: #F1F5F9;
+            padding: 12px;
+            border-bottom: 1px solid #E2E8F0;
+            font-size: 13px;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* 適中垂直間距 */
+        }
+
+        .analysis-section {
+            background-color: #fff;
+            border-left: 3px solid #CBD5E1;
+            padding-left: 12px;
+        }
+
+        /* 明顯標記樣式 */
+        .highlight-red { color: #E11D48; font-weight: 700; background-color: #FFF1F2; padding: 0 2px; border-radius: 2px; }
+        .highlight-amber { color: #D97706; font-weight: 700; background-color: #FFFBEB; padding: 0 2px; border-radius: 2px; }
+
+        .case-it .card-header { background-color: #0284C7; }
+        .case-boss .card-header { background-color: #B45309; }
+        .case-gov .card-header { background-color: #BE123C; }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748B;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .action-box {
+            background-color: #F0FDF4;
+            border: 1px dashed #16A34A;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+    <div class="header">
+        <div class="flex flex-col">
+            <div class="flex items-center space-x-3 mb-1">
+                <span class="px-2 py-0.5 bg-yellow-600 bg-opacity-20 border border-yellow-600 rounded text-yellow-500 text-xs font-bold tracking-wider">CASE STUDY</span>
+                <p class="text-gray-300 text-sm tracking-wide font-light">金融業專屬</p>
+            </div>
+            <h1 class="text-3xl text-white font-bold tracking-wide">案例說明</h1>
+        </div>
+        <div class="ml-auto text-white opacity-20"><i class="fas fa-file-shield text-4xl"></i></div>
+    </div>
+
+    <div class="content-container">
+        <div class="bg-pattern"></div>
+        
+        <div class="case-card case-it z-10">
+            <div class="card-header">
+                <div class="icon-circle"><i class="fas fa-laptop-code text-sm"></i></div>
+                <span class="font-bold text-lg">案例 A｜假冒資訊部</span>
+            </div>
+            <div class="email-simulation">
+                <div class="flex mb-1"><span class="w-12 text-gray-400 font-medium">寄件者:</span><span class="text-gray-800">IT Service &lt;support@gmai1.com&gt;</span></div>
+                <div class="flex"><span class="w-12 text-gray-400 font-medium">主旨:</span><span class="font-bold text-red-600">[緊急] 您的密碼將於24小時後失效</span></div>
+            </div>
+            <div class="card-body">
+                <div class="analysis-section border-l-blue-500">
+                    <div class="section-label"><i class="fas fa-magnifying-glass mr-2"></i>可疑徵兆</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-600 space-y-1">
+                        <li>替換字形 (@gmai<span class="highlight-red">1</span>.com)</li>
+                        <li>使用外部短網址 (bit.ly/...)</li>
+                        <li>要求輸入「<span class="highlight-red">舊密碼</span>」與「<span class="highlight-red">OTP</span>」</li>
+                    </ul>
+                </div>
+                <div class="analysis-section border-l-red-500">
+                    <div class="section-label"><i class="fas fa-triangle-exclamation mr-2"></i>潛在風險</div>
+                    <p class="text-sm text-gray-700">帳號被盜取，駭客潛入內部發送更多釣魚信件。</p>
+                </div>
+                <div class="action-box">
+                    <div class="section-label text-green-700"><i class="fas fa-check-circle mr-2"></i>正確作法</div>
+                    <p class="text-sm text-gray-800 font-medium">勿點連結！由公司官方入口網站登入確認。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-card case-boss z-10">
+            <div class="card-header">
+                <div class="icon-circle"><i class="fas fa-user-tie text-sm"></i></div>
+                <span class="font-bold text-lg">案例 B｜假冒高層主管</span>
+            </div>
+            <div class="email-simulation">
+                <div class="flex mb-1"><span class="w-12 text-gray-400 font-medium">寄件者:</span><span class="text-gray-800">CEO_Office &lt;ceo.work@externals.com&gt;</span></div>
+                <div class="flex"><span class="w-12 text-gray-400 font-medium">主旨:</span><span class="font-bold text-gray-800">Re: 立即提供高資產保戶名單 (機密)</span></div>
+            </div>
+            <div class="card-body">
+                <div class="analysis-section border-l-yellow-600">
+                    <div class="section-label"><i class="fas fa-magnifying-glass mr-2"></i>可疑徵兆</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-600 space-y-1">
+                        <li>語氣<span class="highlight-amber">異常急迫</span>，強調保密、特急</li>
+                        <li>要求傳至「<span class="highlight-amber">私人信箱</span>」</li>
+                        <li>時間點常在<span class="highlight-amber">下班前或週末</span></li>
+                    </ul>
+                </div>
+                <div class="analysis-section border-l-red-500">
+                    <div class="section-label"><i class="fas fa-triangle-exclamation mr-2"></i>潛在風險</div>
+                    <p class="text-sm text-gray-700">嚴重違反<span class="text-red-600 font-bold">個資法</span>，引發公司聲譽危機。</p>
+                </div>
+                <div class="action-box">
+                    <div class="section-label text-green-700"><i class="fas fa-check-circle mr-2"></i>正確作法</div>
+                    <p class="text-sm text-gray-800 font-medium">電話「回撥」本人確認，堅持依程序申請。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-card case-gov z-10">
+            <div class="card-header">
+                <div class="icon-circle"><i class="fas fa-gavel text-sm"></i></div>
+                <span class="font-bold text-lg">案例 C｜假冒主管機關</span>
+            </div>
+            <div class="email-simulation">
+                <div class="flex mb-1"><span class="w-12 text-gray-400 font-medium">寄件者:</span><span class="text-gray-800">金管會 &lt;gov.tw@fsc-mail.org&gt;</span></div>
+                <div class="flex"><span class="w-12 text-gray-400 font-medium">主旨:</span><span class="font-bold text-gray-800">114年度合規稽核通知書 (附件加密)</span></div>
+            </div>
+            <div class="card-body">
+                <div class="analysis-section border-l-pink-600">
+                    <div class="section-label"><i class="fas fa-magnifying-glass mr-2"></i>可疑徵兆</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-600 space-y-1">
+                        <li>附件為「<span class="highlight-red">加密壓縮檔</span>」(規避掃毒)</li>
+                        <li>要求填寫「<span class="highlight-red">外部網站表單</span>」說明</li>
+                        <li>偽造公文格式但用語不夠精確</li>
+                    </ul>
+                </div>
+                <div class="analysis-section border-l-red-500">
+                    <div class="section-label"><i class="fas fa-triangle-exclamation mr-2"></i>潛在風險</div>
+                    <p class="text-sm text-gray-700">感染<span class="text-red-600 font-bold">勒索病毒</span>，竊取公司敏感文件。</p>
+                </div>
+                <div class="action-box">
+                    <div class="section-label text-green-700"><i class="fas fa-check-circle mr-2"></i>正確作法</div>
+                    <p class="text-sm text-gray-800 font-medium">聯繫法遵窗口核驗真偽，絕對勿開附件。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute bottom-6 left-8 text-gray-400 text-xs font-light">
+        <i class="fas fa-shield-alt mr-1"></i> 提醒：任何要求「繞過既有流程」的指令，都應視為最高風險訊號。
+    </div>
+    <div class="absolute bottom-6 right-8 text-gray-400 font-bold text-sm">05</div>
+</div>
+</body>
+</html>

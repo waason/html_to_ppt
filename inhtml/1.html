@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280, height=720, initial-scale=1.0">
+    <title>課程目的與學習重點</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #0f172a;
+            /* 移除所有背景圖案與 SVG 裝飾點 */
+            background-image: none !important; 
+            position: relative;
+            display: flex;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 420px;
+            background-color: rgba(30, 41, 59, 0.8);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            z-index: 10;
+        }
+        /* 確保內容區域沒有任何隱藏的點狀裝飾 */
+        .content-area {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 10;
+            background-image: none !important;
+        }
+        .list-item {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            list-style: none; /* 確保沒有預設列表圓點 */
+        }
+        .list-item:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 9999px;
+        }
+        .icon-red { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 2px solid rgba(239, 68, 68, 0.4); }
+        .icon-yellow { background-color: rgba(252, 211, 77, 0.15); color: #fbbf24; border: 2px solid rgba(252, 211, 77, 0.4); }
+        .icon-cyan { background-color: rgba(34, 211, 238, 0.15); color: #22d3ee; border: 2px solid rgba(34, 211, 238, 0.4); }
+        
+        .highlight-text { color: #fcd34d; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="sidebar">
+            <div class="mb-8">
+                <div class="inline-block px-3 py-1 bg-blue-600 text-xs font-bold tracking-widest uppercase rounded mb-4">Course Objectives</div>
+                <h1 class="text-4xl font-extrabold leading-tight mb-6">課程目的與<br><span class="highlight-text">學習重點</span></h1>
+                <div class="w-16 h-1 bg-fcd34d mb-6"></div>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    本課程旨在<span class="text-white font-bold">強化同仁對資安威脅的防禦能力</span>，並建立<span class="text-white font-bold">安全使用 AI 工具</span>的正確觀念，進而深植客戶信任。
+                </p>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="max-w-2xl">
+                <div class="list-item p-8 flex items-center rounded-lg">
+                    <div class="w-20 h-20 icon-box icon-red">
+                        <i class="fas fa-shield-alt text-3xl"></i>
+                    </div>
+                    <div class="ml-8">
+                        <h3 class="text-white text-2xl font-bold mb-2">強化資安意識</h3>
+                        <p class="text-gray-400 text-base">整理 2025 年詐騙手法與社交工程案例，提升對潛在威脅的警覺度。</p>
+                    </div>
+                </div>
+
+                <div class="list-item p-8 flex items-center rounded-lg">
+                    <div class="w-20 h-20 icon-box icon-yellow">
+                        <i class="fas fa-search text-3xl"></i>
+                    </div>
+                    <div class="ml-8">
+                        <h3 class="text-white text-2xl font-bold mb-2">掌握辨識技巧</h3>
+                        <p class="text-gray-400 text-base">學會「看寄件人、查假連結、抓怪內容」，第一時間擋下危險郵件。</p>
+                    </div>
+                </div>
+
+                <div class="list-item p-8 flex items-center rounded-lg">
+                    <div class="w-20 h-20 icon-box icon-cyan">
+                        <i class="fas fa-robot text-3xl"></i>
+                    </div>
+                    <div class="ml-8">
+                        <h3 class="text-white text-2xl font-bold mb-2">AI 工具使用安全</h3>
+                        <p class="text-gray-400 text-base">理解生成式 AI 的資安風險，在保護公司機密的前提下合規運用工具。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
