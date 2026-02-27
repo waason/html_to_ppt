@@ -32,7 +32,7 @@ jobs:
       - name: Install Puppeteer System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libnss3 libdrm2 libgbm1
+          sudo apt-get install -y libxss1 libasound2t64 libatk-bridge2.0-0 libgtk-3-0 libnss3 libdrm2 libgbm1
   
       - name: Run Conversion
         run: npm start -- --inputDir ${{ github.event.inputs.inputDir || 'inhtml' }} --outputDir ${{ github.event.inputs.outputDir || 'outppt' }}
