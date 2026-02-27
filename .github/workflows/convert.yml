@@ -1,0 +1,44 @@
+name: Convert HTML to PPTX
+
+on:
+  workflow_dispatch:
+    inputs:
+      inputDir:
+        description: '輸入的 HTML 資料夾 (Input directory)'
+        required: true
+        default: 'inhtml'
+      outputDir:
+        description: '輸出的 PPTX 資料夾 (Output directory)'
+        required: true
+        default: 'outppt'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      # Puppeteer 需要系統上的 Chrome 依賴，所以使用 actions/setup-node 後補上 Linux 系統套件
+      - name: Install Puppeteer System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libnss3 libdrm2 libgbm1
+  
+      - name: Run Conversion
+        run: npm start -- --inputDir ${{ github.event.inputs.inputDir || 'inhtml' }} --outputDir ${{ github.event.inputs.outputDir || 'outppt' }}
+        
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Generated-PPTX
+          path: ${{ github.event.inputs.outputDir || 'outppt' }}/output.pptx
